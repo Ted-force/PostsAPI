@@ -31,7 +31,7 @@ class PostList(APIView):
 
     def put(self, request, id):
         postData = JSONParser().parse(request)
-        post = Post.objects.get(postID=postData['postID'])
+        post = Post.objects.get(postID=id)
         serializer = PostSerializer(post, data=postData)
         if serializer.is_valid():
             serializer.save()
@@ -104,8 +104,8 @@ class LikeList(APIView):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
         
-    def delete(self, request, id):
-        like = Like.objects.get(id=id)
+    def delete(self, request, id,id2):
+        like = Like.objects.get(id=id2)
         like.delete()
         return JsonResponse({'deleted': True})
 

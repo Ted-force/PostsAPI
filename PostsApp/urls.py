@@ -9,6 +9,7 @@ urlpatterns = [
     path('posts/<int:id>/comments/',CommentList.as_view()),
     path('posts/<int:id>/comments/<int:id2>',CommentList.as_view()),
     path('posts/<int:id>/likes/',LikeList.as_view()),
+    path('posts/<int:id>/likes/<int:id2>',LikeList.as_view()),
 ]
 
 
