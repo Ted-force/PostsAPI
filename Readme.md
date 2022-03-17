@@ -30,16 +30,16 @@ Routes:
    GET: get all Likes on a post with ID=id   <br />
    
 6) http://localhost:8000/api/posts/id/reactions/id2  <br /> 
-   POST: Post a new reaction on post with Id=id
-    id2 specifies type of reactions
-    0=like
-    1=Laugh
-    2=Amazed
-    3=Sad
+   POST: Post a new reaction on post with Id=id <br />
+    id2 specifies type of reactions  <br />
+    0=like <br />
+    1=Laugh  <br />
+    2=Amazed  <br />
+    3=Sad  <br />
    (e.g. {
      user: "user2"
      ReactionType: "Like"  //for id2=0
    }
-   )
- 7)  http://localhost:8000/api/posts/id/reactions/id2/id3 
+   ) <br />
+ 7)  http://localhost:8000/api/posts/id/reactions/id2/id3  <br />
    DELETE: delete a like with ID=id3 and reactionId=id2 on post with ID=id 
