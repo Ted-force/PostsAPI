@@ -26,8 +26,20 @@ Routes:
    PUT: update comment with ID2   <br/>
    DELETE: Delete Comment witht ID2 <br />
    
-5) http://localhost:8000/api/posts/id/likes/   <br />
+5) http://localhost:8000/api/posts/id/reactions/   <br />
    GET: get all Likes on a post with ID=id   <br />
-   POST: add a like on post with ID=id  <br />
-6) http://localhost:8000/api/posts/id/likes/id2  <br />   
-   DELETE: delete a like with ID=id2 on post with ID=id 
+   
+6) http://localhost:8000/api/posts/id/reactions/id2  <br /> 
+   POST: Post a new reaction on post with Id=id
+    id2 specifies type of reactions
+    0=like
+    1=Laugh
+    2=Amazed
+    3=Sad
+   (e.g. {
+     user: "user2"
+     ReactionType: "Like"  //for id2=0
+   }
+   )
+ 7)  http://localhost:8000/api/posts/id/reactions/id2/id3 
+   DELETE: delete a like with ID=id3 and reactionId=id2 on post with ID=id 
