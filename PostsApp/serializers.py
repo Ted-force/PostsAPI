@@ -1,18 +1,18 @@
 from rest_framework import serializers
-from PostsApp.models import Post, Comments, Like
+from PostsApp.models import Post, Comments, Reactions
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('postID', 'title', 'body', 'username', 'created_at', 'likescount', 'commentscount')
+        fields = ('postID', 'title', 'body', 'username', 'created_at', 'reactionsCount', 'commentscount')
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = ('id','post', 'username', 'comment', 'comment_date')
 
-class LikeSerializer(serializers.ModelSerializer):
+class ReactionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Like
-        fields = ('id','user', 'post')
+        model = Reactions
+        fields = ('id','user', 'post', 'reactionType')
                 

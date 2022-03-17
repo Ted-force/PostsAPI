@@ -7,7 +7,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
     username = models.CharField(max_length=200)
-    likescount = models.IntegerField(default=0)
+    reactionsCount = models.IntegerField(default=0)
     commentscount = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -22,6 +22,10 @@ class Comments(models.Model):
     comment_date = models.DateTimeField(auto_now_add=True)
 
 
-class Like(models.Model):
+class Reactions(models.Model):
     user = models.CharField(max_length=200)
-    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='reactions', on_delete=models.CASCADE)
+    reactionType = models.CharField(max_length=200)
+
+
+

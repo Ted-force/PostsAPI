@@ -1,15 +1,16 @@
 # from django.conf.urls import url
 from django.urls import path
-from PostsApp.views import *
-from PostsApp.views2 import PostList, CommentList, LikeList
+# from PostsApp.views import *
+from PostsApp.views2 import PostList, CommentList, ReactionList
 
 urlpatterns = [
     path('posts/', PostList.as_view()),
     path('posts/<int:id>',PostList.as_view()),
     path('posts/<int:id>/comments/',CommentList.as_view()),
     path('posts/<int:id>/comments/<int:id2>',CommentList.as_view()),
-    path('posts/<int:id>/likes/',LikeList.as_view()),
-    path('posts/<int:id>/likes/<int:id2>',LikeList.as_view()),
+    path('posts/<int:id>/reactions/',ReactionList.as_view()),
+    path('posts/<int:id>/reactions/<int:id2>',ReactionList.as_view()),
+    path('posts/<int:id>/reactions/<int:id2>/<int:id3>',ReactionList.as_view()),
 ]
 
 

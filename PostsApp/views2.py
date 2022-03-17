@@ -5,8 +5,8 @@ from django.http.response import JsonResponse
 from rest_framework.views import APIView
 
 
-from PostsApp.models import Post, Comments, Like
-from PostsApp.serializers import PostSerializer, CommentSerializer, LikeSerializer
+from PostsApp.models import Post, Comments, Reactions
+from PostsApp.serializers import PostSerializer, CommentSerializer, ReactionSerializer
 
 # Create your views here.
 
@@ -59,7 +59,9 @@ class CommentList(APIView):
     def post(self, request, id=0):
         if id != 0:
          posts = Post.objects.get(postID=id)
-         
+         posts.commentscount += 1
+         posts.save()
+
          data = JSONParser().parse(request)
          data['post'] = id
          serializer = CommentSerializer(data=data)
@@ -87,26 +89,42 @@ class CommentList(APIView):
 
 
 
-class LikeList(APIView):
+class ReactionList(APIView):
     def get(self, request, id=0):
         if id != 0:
-            likes = Like.objects.filter(post_id=id)
-            serializer = LikeSerializer(likes, many=True)
+            reactions = Reactions.objects.filter(post_id=id)
+            serializer = ReactionSerializer(reactions, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse({'error': 'No post id'}, status=400)
 
-    def post(self, request, id=0):
-        data = JSONParser().parse(request)
-        serializer = LikeSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
+    def post(self, request, id=0, id2=0):
+        if id != 0:
+            posts = Post.objects.get(postID=id)
+            posts.reactionsCount += 1
+            posts.save()
+            data = JSONParser().parse(request)
+            data['post'] = id
+            if(id2 == 0):
+                data['reactionType'] = 'like'
+            elif(id2 == 1):
+                data['reactionType'] = 'Laugh'
+            elif(id2 == 2):
+                data['reactionType'] = 'Amazed'
+            elif(id2 == 3):
+                data['reactionType'] = 'Sad'            
+            serializer = ReactionSerializer(data=data)
+            if serializer.is_valid():
+               serializer.save()
+               return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
         
-    def delete(self, request, id,id2):
-        like = Like.objects.get(id=id2)
-        like.delete()
+    def delete(self, request, id,id2,id3):
+        reaction = Reactions.objects.get(id=id3)
+        reaction.delete()
         return JsonResponse({'deleted': True})
+
+
+       
 
 
